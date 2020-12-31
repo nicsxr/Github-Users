@@ -47,12 +47,17 @@
             <div class="content">
                 <strong><a :href="'/'+ user.login" class="is-size-1">{{user.login}}</a></strong><br>
                 <strong>Type: </strong>{{user.type}}
-                <h3>Top 3 repositories</h3>
-                <div v-for="repo in user.repos" :key="repo.id">
-                  <p class="repo-name">{{repo.name}}</p>
-                  <span class="icon has-text-dark">
-                    <a :href=repo.svn_url><i class="fab fa-github vertical-middle"></i></a>
-                  </span>
+                <div v-if="user.repos">
+                  <h3>Top 3 repositories</h3>
+                  <div v-for="repo in user.repos" :key="repo.id">
+                    <p class="repo-name">{{repo.name}}</p>
+                    <span class="icon has-text-dark">
+                      <a :href=repo.svn_url><i class="fab fa-github vertical-middle"></i></a>
+                    </span>
+                  </div>
+                </div>
+                <div v-else>
+                  <h1>No repositories</h1>
                 </div>
             </div>
           </div>
@@ -76,7 +81,7 @@
                 <strong>Type: </strong>{{user.type}}
               </div>
             </div>
-            <div class="content">
+            <div v-if="user.repos" class="content">
               <h3>Top 3 repositories</h3>
               <div v-for="repo in user.repos" :key="repo.id">
                 {{repo.name}}
@@ -84,6 +89,9 @@
                   <a :href=repo.svn_url><i class="fab fa-github vertical-middle"></i></a>
                 </span>
               </div>
+            </div>
+            <div v-else>
+              <h1>No repositories</h1>
             </div>
             
           </div>
@@ -139,7 +147,8 @@ export default {
         users.forEach(user => {
           this.$axios.get(user.repos_url).then((res) => {
             const repos = res.data
-            user['repos'] = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0,3)
+            if(repos.length < 1) user['repos'] = null
+            else user['repos'] = repos.sort((a, b) => b.stargazers_count - a.stargazers_count).slice(0,3)
             //console.log(user.repos)
             this.users.push(user)
           }).catch((err) => {
@@ -216,7 +225,6 @@ export default {
 .usersDiv{
   padding: 2rem;
 }
-
 .user-list{
   margin: auto;
   width: 50%;
