@@ -118,7 +118,6 @@ export default {
   },
 
   mounted: function (){
-    console.log(process.env.GIT_TOKEN)
     this.getTopUsers()
     if(localStorage.gridView==1) this.toggleView(1)
 
