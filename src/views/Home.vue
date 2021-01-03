@@ -39,11 +39,11 @@
     <!-- LIST VIEW !-->
     <div class="usersDiv" v-if="gridView==false">
       <div v-for="user in users" :key="user.login" class="user-list">
-        <article class="media">
-          <figure class="media-left">
+        <article class="columns">
+          <figure class="column media-left">
             <img :src=user.avatar_url width="250px" height="200px">
           </figure>
-          <div class="media-content">
+          <div class="column media-content">
             <div class="content">
                 <strong><a :href="'/'+ user.login" class="is-size-1">{{user.login}}</a></strong><br>
                 <strong>Type: </strong>{{user.type}}
@@ -77,7 +77,7 @@
           <div class="card-content">
             <div class="media">
               <div class="media-content">
-                <strong><a :href=user.html_url class="is-size-1">{{user.login}}</a></strong><br>
+                <strong><a :href="'/'+user.login" class="is-size-1">{{user.login}}</a></strong><br>
                 <strong>Type: </strong>{{user.type}}
               </div>
             </div>
