@@ -5,30 +5,30 @@
         <input id="searchInput" @focus="changeSearchFocus($event)" class="input is-success" v-model="searchWord" type="text" placeholder="Search users">
         <button class="button is-success searchButton" type="submit">Search</button>
       </form>
-        <div class="tile search-box" v-if="searchFocus">
-          <article class="tile is-child notification is-success is-10">
-            <h1 class="title">Last searches <i class="fas fa-search"></i></h1>
-            <div v-for="search in searches" :key="search.login" class="columns">
-              <div v-if="search.found == 1" class="is-flex is-align-content-center">
-                <figure class="image is-32x32 mr-3">
-                  <img class="is-rounded " :src="search.avatar_url">
-                </figure>
-                <a :href="'/'+search.login"><p class="subtitle">{{search.login}}</p></a>
-                <span class="icon has-text-dark">
-                    <a :href=search.git_url><i class="fab fa-github ml-3 vertical-middle"></i></a>
-                </span> 
-                <hr>
-              </div>
-              <div v-if="search.found == 0" class="is-flex is-align-content-center">
-                <figure class="image is-32x32 mr-3">
-                  <i class="far fa-2x fa-question-circle"></i>
-                </figure>
-                <a :href="'/'+search.login"><p class="subtitle">{{search.login}}</p></a>
-                <hr>
-              </div>
+      <div class="tile search-box" v-if="searchFocus">
+        <article class="tile is-child notification is-success is-10">
+          <h1 class="title">Last searches <i class="fas fa-search"></i></h1>
+          <div v-for="search in searches" :key="search.login" class="columns">
+            <div v-if="search.found == 1" class="is-flex is-align-content-center">
+              <figure class="image is-32x32 mr-3">
+                <img class="is-rounded " :src="search.avatar_url">
+              </figure>
+              <a :href="'/'+search.login"><p class="subtitle">{{search.login}}</p></a>
+              <span class="icon has-text-dark">
+                  <a :href=search.git_url><i class="fab fa-github ml-3 vertical-middle"></i></a>
+              </span> 
+              <hr>
             </div>
-          </article>
-        </div>
+            <div v-if="search.found == 0" class="is-flex is-align-content-center">
+              <figure class="image is-32x32 mr-3">
+                <i class="far fa-2x fa-question-circle"></i>
+              </figure>
+              <a :href="'/'+search.login"><p class="subtitle">{{search.login}}</p></a>
+              <hr>
+            </div>
+          </div>
+        </article>
+      </div>
     </div>
     <br>
     <div class="grid-list-toggle">
@@ -118,6 +118,7 @@ export default {
   },
 
   mounted: function (){
+    console.log(this.users)
     this.getTopUsers()
     if(localStorage.gridView==1) this.toggleView(1)
 
@@ -158,7 +159,6 @@ export default {
       }).catch((err) => {
         console.log(err)
       })
-      console.log(this.users)
     },
 
     searchUser: function(){
