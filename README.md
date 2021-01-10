@@ -2,6 +2,7 @@
 
 ## Project setup
 ```
+Create .env file with GIT_TOKEN variable amd assign github access token to it.
 npm install
 ```
 
